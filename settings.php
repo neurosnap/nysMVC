@@ -21,10 +21,10 @@
 	$settings->logo = './layouts/assets/images/nysus.png';
 
 	//DB INFO
-	$settings->server = 'www.nysus.net';
-	$settings->db = 'calibration';
-	$settings->user = 'nysususer';
-	$settings->pass = 'nysus2444';
+	$settings->server = '';
+	$settings->db = '';
+	$settings->user = '';
+	$settings->pass = '';
 	$settings->driver = 'sqlsrv';
 
 ?>
