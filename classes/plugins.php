@@ -15,8 +15,6 @@ class Plugins {
 
 			$this->plugin_list = json_decode(json_encode($obj));
 
-			//default plugins
-			array_push($this->plugin_css, "./layouts/assets/css/supr_main.css");
 			//jquery
 			array_push($this->plugin_js, "./layouts/assets/js/lib/jquery-2.0.3.min.js");
 			//jquery_ui
@@ -27,6 +25,8 @@ class Plugins {
 			array_push($this->plugin_js, "./layouts/assets/js/lib/bootstrap.min.js");
 			array_push($this->plugin_css, "./layouts/assets/css/lib/bootstrap.min.css");
 			array_push($this->plugin_css, "./layouts/assets/css/lib/bootstrap-responsive.min.css");
+			//default plugins
+			array_push($this->plugin_css, "./layouts/assets/css/supr_main.css");
 
 			array_push($this->plugin_js, "./layouts/assets/js/nysus_supr.js");
 			array_push($this->plugin_js, "./layouts/assets/js/core.js");

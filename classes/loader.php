@@ -10,7 +10,7 @@ class Loader {
 	public function __construct($urlvalues) {
 	
 		$this->urlvalues = $urlvalues;
-		
+
 		if (!array_key_exists("api", $this->urlvalues)) {
 			$this->api = "dashboard";
 		} else {
@@ -27,7 +27,7 @@ class Loader {
 	
 	//establish requested api as an object
 	public function createAPI() {
-	
+
 		if (class_exists($this->api)) {
 			$parents = class_parents($this->api);
 			

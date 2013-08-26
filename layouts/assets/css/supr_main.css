@@ -929,7 +929,7 @@ select {width: 150px;}
 
 	/*Navbar*/
 	.navbar {color:#3f3f3f; position: relative; margin-bottom: 0;}
-	.navbar-inner {
+	.supr-navbar-inner {
 		min-height: 66px;
 		padding-right: 0px;
 		padding-left: 20px;
@@ -1627,8 +1627,9 @@ select {width: 150px;}
 			padding-left:35px;
 			padding-right:10px;
 			}
-	.mainnav .hasDrop {position: absolute; right: 0; top:0; padding-right: 0 !important;}
-
+	.mainnav .hasDrop {position: absolute; right: 0; top:0; padding-right: 5px !important;}
+	.mainnav li img { margin-right: 3px; margin-left: 3px;}
+	.mainnav li ul li a img { margin-right: 3px; margin-left: 3px;}
 /*Widget box style*/
 .box {
 	width:100%;

@@ -62,7 +62,7 @@
 		<!-- Header -->
 		<div id="header">
 			<div class="navbar">
-				<div class="navbar-inner">
+				<div class="supr-navbar-inner">
 					<div class="container-fluid">
 						<a class="brand" href="<?= $settings->base_dir ?>"><img src="<?= $settings->logo ?>" alt="logo" style="height:55px;" /></a>
 
