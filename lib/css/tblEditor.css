@@ -1,0 +1,154 @@
+
+/* datatable control features */
+div.dataTables_length {
+    float: left;
+}
+
+/* search feature */
+div.dataTables_filter {
+    float: right;
+}
+
+/* showing 1 to 10 of 10 entries */
+div.dataTables_info {
+    float: left;
+}
+
+/* page functionality */
+div.dataTables_paginate {
+    float: right;
+
+}
+ 
+div.dataTables_length,
+div.dataTables_filter,
+div.dataTables_paginate,
+div.dataTables_info {
+    padding: 3px;
+}
+
+div.dataTables_wrapper {
+    background-color: #fff;
+
+}
+
+/* Self clearing - */
+div.dataTables_wrapper:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+/* custom tblEditor datatable classes */
+table.tbleditor {
+    width: 100%;
+    clear: both;
+    margin: 3px;
+    -webkit-border-radius: 8px !important;
+	-moz-border-radius: 8px !important;
+	border-radius: 8px !important;
+	border-collapse: separate !important;
+	border-spacing: 2px !important;
+	-webkit-box-shadow: 0 1px 1px #ccc;
+    -moz-box-shadow: 0 1px 1px #ccc;
+    box-shadow: 0 1px 1px #ccc;
+
+}
+ 
+/* Top Left */
+table.tbleditor tr:first-child th:first-child {
+    -webkit-border-top-left-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    border-top-left-radius: 8px;
+}
+/* Top Right */
+table.tbleditor tr:first-child th:last-child{
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topright: 8px;
+    border-top-right-radius: 8px;
+}
+/* Bottom Left */
+table.tbleditor tr:last-child td:first-child{
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    border-bottom-left-radius: 8px;
+}
+/* Bottom Right */
+table.tbleditor tr:last-child td:last-child{
+    -webkit-border-bottom-right-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+table.tbleditor td,
+table.tbleditor th {
+	text-align: center;
+    padding: 5px 5px 2px 5px;
+}
+
+/* Header cells */
+table.tbleditor thead th {
+    text-align: center;
+    background: #ddd url('http://nysus.net/admin/table_editor/assets/images/bg_glass.png') 50% 50% repeat-x !important;
+    color: #444;
+    border: 1px solid #bbb;
+	letter-spacing: 1px;
+	cursor: pointer;
+	font-size: 11px;
+}
+
+/* Body cells */
+table.tbleditor tbody th {
+    text-align: center;
+    background: #91c5d4;
+}
+     
+table.tbleditor tbody td {
+    text-align: center;
+	background: #f0f0f0;
+	padding: 3px;
+	color: #000;
+}
+         
+table.tbleditor tbody tr.odd td {
+    background: #f8f8f8;
+	color: #000;
+}
+
+table.tbleditor tbody td.sorting_1 {
+	background: #E6E8FA;
+	color: #000;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+table.tbleditor tbody tr.odd td.sorting_1 {
+	background: #F8F8FF;
+	color: #000;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+}
+
+/* Footer cells */ 
+table.tbleditor tfoot th {
+    background: #b0cc7f;
+    text-align: left;
+}
+     
+table.tbleditor tfoot td {
+    background: #d7e1c5;
+    text-align: center;
+    font-weight: bold;
+}
+
+table.tbleditor input, select {
+	margin-bottom: 2px;
+	font-size: 12px;
+	padding: 2px 5px;
+}
+
+html[xmlns] .dataTables_wrapper { display: block; }
+* html .dataTables_wrapper { height: 1%; }

@@ -16,7 +16,7 @@ abstract class BaseAPI {
 		return $this->{$this->action}();
 	}
 
-	protected function loadView($model, $fullview = true, $authenticate = false) {
+	protected function loadView($model, $fullview = true, $authenticate = false, $view_override = false) {
 
 		$api = new stdClass();
 		$load_view = false;
@@ -58,7 +58,11 @@ abstract class BaseAPI {
 
 			require('./settings.php');
 
-			$api->viewloc = './views/' . $this->api . '/' . $this->action . '.php';
+			if (!$view_override)
+				$api->viewloc = './views/' . $this->api . '/' . $this->action . '.php';
+			else
+				$api->viewloc = './views/' . $this->api . '/' . $view_override;
+
 			$api->jsloc = './views/' . $this->api . '/js/' . $this->action . '.js';
 
 			$api->name = ucfirst($this->api);
@@ -69,6 +73,14 @@ abstract class BaseAPI {
 
 				case "dashboard":
 					$api->page_plugins = array("");
+				break;
+
+				case "setup":
+					$api->page_plugins = array("datatables", "tblEditor");
+				break;
+
+				case "report":
+					$api->page_plugins = array("datatables", "select2", "nysReports");
 				break;
 
 				default:

@@ -20,6 +20,8 @@
 	$settings->product_description = "This is a " . $settings->product_name . " description for " . $settings->company_name;
 	$settings->logo = './layouts/assets/images/nysus.png';
 
+	$settings->lib_dir = './lib';
+	
 	//DB INFO
 	$settings->server = '';
 	$settings->db = '';

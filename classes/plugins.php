@@ -16,15 +16,15 @@ class Plugins {
 			$this->plugin_list = json_decode(json_encode($obj));
 
 			//jquery
-			array_push($this->plugin_js, "./layouts/assets/js/lib/jquery-2.0.3.min.js");
+			array_push($this->plugin_js, $settings->lib_dir . "/js/jquery-2.0.3.min.js");
 			//jquery_ui
-			array_push($this->plugin_js, "./layouts/assets/js/lib/jquery-ui.min.js");
-			array_push($this->plugin_css, "./layouts/assets/css/lib/jquery-ui.min.css");
+			array_push($this->plugin_js, $settings->lib_dir . "/js/jquery-ui.min.js");
+			array_push($this->plugin_css, $settings->lib_dir . "/css/jquery-ui.min.css");
 
 			//bootstrap
-			array_push($this->plugin_js, "./layouts/assets/js/lib/bootstrap.min.js");
-			array_push($this->plugin_css, "./layouts/assets/css/lib/bootstrap.min.css");
-			array_push($this->plugin_css, "./layouts/assets/css/lib/bootstrap-responsive.min.css");
+			array_push($this->plugin_js, $settings->lib_dir . "/js/bootstrap.min.js");
+			array_push($this->plugin_css, $settings->lib_dir . "/css/bootstrap.min.css");
+			array_push($this->plugin_css, $settings->lib_dir . "/css/bootstrap-responsive.min.css");
 			//default plugins
 			array_push($this->plugin_css, "./layouts/assets/css/supr_main.css");
 
@@ -36,8 +36,23 @@ class Plugins {
 				//CASE statement to call appropriate function
 				switch ($plugin) {
 					//Always (for proper loading)
-					case "default":
-						array_push($this->plugin_js, "./layouts/assets/js/lib/default.js");
+					case "datatables":
+						//array_push($this->plugin_css, $settings->lib_dir . "/js/jquery.dataTables.css");
+						array_push($this->plugin_js, $settings->lib_dir . "/js/jquery.dataTables.min.js");
+					break;
+
+					case "tblEditor":
+						array_push($this->plugin_css, $settings->lib_dir . "/css/tblEditor.css");
+						array_push($this->plugin_js, $settings->lib_dir . "/js/tblEditor.js");
+					break;
+
+					case "nysReports":
+						array_push($this->plugin_js, $settings->lib_dir . "/js/nysReports.js");
+					break;
+
+					case "select2":
+						array_push($this->plugin_css, $settings->lib_dir . "/css/select2.css");
+						array_push($this->plugin_js, $settings->lib_dir . "/js/select2.min.js");
 					break;
 						
 				}

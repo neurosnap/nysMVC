@@ -35,7 +35,12 @@ class ORM {
 			$this->con = mssql_connect($this->server, $this->user, $this->pass);
 			$this->db_con = mssql_select_db($this->db);
 
-		} else {
+		} else if ($this->driver == "mysql") {
+
+			$this->con = mysql_connect($this->server, $this->user, $this->pass);
+			$this->db_con = mysql_select_db($this->db);
+
+		} {
 
 			die("{ \"error\": \"No SQL driver selected for PHP. Set settings->driver to sqlsrv or mssql in settings.php\" }");
 
@@ -45,9 +50,10 @@ class ORM {
 
 			if ($this->driver == "sqlsrv")
 				print_r(sqlsrv_errors());
-			else
+			else if ($this->driver == "mysql")
+				print_r(mysql_error());
+			else 
 				die("{ \"error\": \"MSSQL Connect failed when attempting to secure connection to database.\" }");
-
 		}
 
 	}
@@ -56,8 +62,10 @@ class ORM {
 
 		if ($this->driver == "sqlsrv")
 			sqlsrv_close($this->con);
-		else
+		else if ($this->driver == "mssql")
 			mssql_close($this->con);
+		else if ($this->driver == "mysql")
+			mysql_close($this->con);
 
 	}
 
@@ -118,7 +126,7 @@ class ORM {
 
 			}
 
-		} else {
+		} else if ($this->driver == "mssql") {
 
 			$data = mssql_query($string, $this->con);
 
@@ -165,9 +173,56 @@ class ORM {
 
 			}
 
+		} else if ($this->driver == "mysql") {
+
+			$data = mysql_query($string, $this->con);
+
+			if ($data === false) {
+
+				$obj = new stdClass();
+				$obj->success = false;
+				$obj->message = "Query returned false";
+
+				if ($json_content)
+					return json_encode($obj);
+				else
+					return $obj;
+
+			}
+
+			if ($multiple_records == false) {
+
+				while ($obj = mysql_fetch_object($data)) {
+					array_push($arr, $obj);
+				}
+				
+			} else {
+
+				$count = 0;
+				$arr = new stdClass();
+				// Iterate through returned records
+				do {
+					
+					while ($obj = mysql_fetch_object($data)) {
+
+						if (!property_exists($arr, $multiple_records[$count]))
+							$arr->$multiple_records[$count] = array();
+
+						array_push($arr->$multiple_records[$count], $obj);
+
+					}
+
+					$count++;
+
+				} while (mysql_data_seek($data));
+
+				mysql_free_result($data);
+
+			}
+
 		}
 
-		$this->Close();
+		//$this->Close();
 
 		if ($json_content)
 			return json_encode($arr);
@@ -202,7 +257,7 @@ class ORM {
 
 			}
 
-		} else {
+		} else if ($this->driver == "mssql") {
 
 			$data = mssql_query($string, $this->con);
 
@@ -218,9 +273,25 @@ class ORM {
 
 			}
 
+		} else if ($this->driver == "mysql") {
+
+			$data = mysql_query($string, $this->con);
+
+			if ($data === false) {
+
+				$msg->success = false;
+				$msg->message = "Error: Query returned false, Query: " . $string;
+
+			} else {
+
+				$msg->success = true;
+				$msg->message = 'SQL has been updated';
+
+			}
+
 		}
 
-		$this->Close();
+		//$this->Close();
 
 		if ($json_content)
 			return json_encode($msg);
