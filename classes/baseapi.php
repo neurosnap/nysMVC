@@ -16,7 +16,7 @@ abstract class BaseAPI {
 		return $this->{$this->action}();
 	}
 
-	protected function loadView($model, $fullview = true, $authenticate = false, $view_override = false) {
+	protected function loadView($model, $fullview = true, $authenticate = false, $view_override = false, $layout_override = false) {
 
 		$api = new stdClass();
 		$load_view = false;
@@ -59,9 +59,9 @@ abstract class BaseAPI {
 			require('./settings.php');
 
 			if (!$view_override)
-				$api->viewloc = './views/' . $this->api . '/' . $this->action . '.php';
+				$api->view = './views/' . $this->api . '/' . $this->action . '.php';
 			else
-				$api->viewloc = './views/' . $this->api . '/' . $view_override;
+				$api->view = './views/' . $this->api . '/' . $view_override;
 
 			$api->jsloc = './views/' . $this->api . '/js/' . $this->action . '.js';
 
@@ -91,10 +91,18 @@ abstract class BaseAPI {
 
 			}
 
-			if ($fullview)
-				require('./layouts/layout.php');
-			else
+			if ($fullview) {
+
+				if (!$layout_override)
+					require('./layouts/' . $settings->layout);
+				else
+					require('./layouts/' . $layout_override);
+
+			} else {
+
 				require($viewloc);
+
+			}
 
 		}
 

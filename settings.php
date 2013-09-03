@@ -20,7 +20,10 @@
 	$settings->product_description = "This is a " . $settings->product_name . " description for " . $settings->company_name;
 	$settings->logo = './layouts/assets/images/nysus.png';
 
+	//library directory, primarily for plugin class
 	$settings->lib_dir = './lib';
+	//default layout file in ./layouts
+	$settings->layout = "layout.php";
 	
 	//DB INFO
 	$settings->server = '';
