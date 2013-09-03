@@ -19,7 +19,7 @@ class Dashboard extends BaseAPI {
 		//echo $model;
 
 		//loads the view with data from model
-		//function loadView($model, $fullview = true, $authenticate = false, $view_override = false)
+		//function loadView($model, $fullview = true, $authenticate = false, $view_override = false, $layout_override = false)
 		//----------------------------------------------------------------------------------------------
 		//$model = database data, gets passed to the view as $model, typically string, object, or array
 		//$authenticate = adding user authentication to the view, should be an int (i.e. 1, 2, 3, 4)
@@ -27,6 +27,8 @@ class Dashboard extends BaseAPI {
 		//		the check is if ($authenticate >= $_SESSION['permission_level'])
 		//$view_override = expecting string containing filename of view that should be used instead of 
 		//		default action
+		//$layout_override = expecting string containing file of layout that should be used instead of 
+		//		default layout, layout must contain:  require($api->view);  in order to load the view content properly
 		$this->loadView("This is the model data");
 	
 	}

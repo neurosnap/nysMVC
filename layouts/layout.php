@@ -140,7 +140,7 @@
 
 					</div><!-- End .heading-->
 					<!-- Build page from here: -->
-	               <?php require($api->viewloc); ?>
+	               <?php require($api->view); ?>
 
 	            </div><!-- End contentwrapper -->
 	        </div><!-- End #content -->
