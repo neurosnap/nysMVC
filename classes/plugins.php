@@ -38,6 +38,7 @@ class Plugins {
 					//Always (for proper loading)
 					case "datatables":
 						array_push($this->plugin_css, $settings->lib_dir . "/css/jquery.dataTables.css");
+						array_push($this->plugin_css, $settings->lib_dir . "/css/nysDataTables.css");
 						array_push($this->plugin_js, $settings->lib_dir . "/js/jquery.dataTables.min.js");
 					break;
 
