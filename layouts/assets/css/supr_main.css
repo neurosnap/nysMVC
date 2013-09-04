@@ -1759,7 +1759,7 @@ select {width: 150px;}
 			display: block;
 		}
 	.box .content {
-		padding:10px;
+		padding: 15px 10px 25px 10px;
 		border:1px solid #c4c4c4;
 		border-bottom-left-radius: 2px;
 		border-bottom-right-radius: 2px;
