@@ -124,7 +124,7 @@
 						<ul class="breadcrumb">
 							<li>You are here:</li>
 							<li>
-								<a href="<?= $settings->base_dir ?>" class="tip" title="back to dashboard">
+								<a href="/index.php" class="tip" title="back to dashboard">
 									<img src="<?= $settings->image_dir ?>/home.png"/>
 								</a>
 								<span class="divider">

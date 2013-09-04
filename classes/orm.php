@@ -40,7 +40,7 @@ class ORM {
 			$this->con = mysql_connect($this->server, $this->user, $this->pass);
 			$this->db_con = mysql_select_db($this->db);
 
-		} {
+		} else {
 
 			die("{ \"error\": \"No SQL driver selected for PHP. Set settings->driver to sqlsrv or mssql in settings.php\" }");
 
