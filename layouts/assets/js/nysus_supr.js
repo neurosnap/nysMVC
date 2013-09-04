@@ -55,7 +55,7 @@ $(document).ready(function() {
 	//remove current class if have
 	mainNavCurrent.removeClass('current');
 
-	var cur_href = base_dir + '/' + api + '/' + action + ((typeof id !== 'undefined' && id != '') ? '/' + id : '');
+	var cur_href = 'index.php?api=' + api + '&action=' + action + ((typeof id !== 'undefined' && id != '') ? '&id=' + id : '');
 	cur_href = cur_href.toLowerCase();
 
 	mainNavLinkAll.each(function(index) {
