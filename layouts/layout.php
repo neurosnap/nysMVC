@@ -95,20 +95,17 @@
 								<a href="index.php"><img src="<?= $settings->image_dir ?>/home.png"/>  Dashboard</a>
 							</li>
 							<li>
-								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Setup <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
+								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Demo <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
 								<ul class="sub">
-									<li><a href="index.php?api=setup&action=locations"><img src="<?= $settings->image_dir ?>/report.png"/>  Locations</a></li>
-									<li><a href="index.php?api=setup&action=manufacturers"><img src="<?= $settings->image_dir ?>/report.png"/>  Manufacturers</a></li>
-									<li><a href="index.php?api=setup&action=assets"><img src="<?= $settings->image_dir ?>/report.png"/>  Assets</a></li>
-									<li><a href="index.php?api=setup&action=calibrations"><img src="<?= $settings->image_dir ?>/report.png"/>  Calibrations</a></li>
+									<li><a href="index.php?api=dashboard&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Demo 1</a></li>
+									<li><a href="index.php?api=dashboard&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Demo 2</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Reports <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
+								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Demo <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
 								<ul class="sub">
-									<li><a href="index.php?api=report&action=historical"><img src="<?= $settings->image_dir ?>/report.png"/>  Historical</a></li>
-									<li><a href="index.php?api=report&action=upcoming"><img src="<?= $settings->image_dir ?>/report.png"/>  Upcoming</a></li>
-									<li><a href="index.php?api=report&action=nonconform"><img src="<?= $settings->image_dir ?>/report.png"/>  Non-Conformity</a></li>
+									<li><a href="index.php?api=dashboard&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Demo 1</a></li>
+									<li><a href="index.php?api=dashboard&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Demo 2</a></li>
 								</ul>
 							</li>
 						</ul>

@@ -1560,6 +1560,7 @@ select {width: 150px;}
 		right:30px;
 	}
 	.mainnav ul li .sub {
+		width: 100%;
 		display: none;
 		float: left;
 		background: rgb(255,255,255);
