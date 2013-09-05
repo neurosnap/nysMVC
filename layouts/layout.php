@@ -64,7 +64,7 @@
 			<div class="navbar">
 				<div class="supr-navbar-inner">
 					<div class="container-fluid">
-						<a class="brand" href="<?= $settings->base_dir ?>"><img src="<?= $settings->logo ?>" alt="logo" style="height:55px;" /></a>
+						<a class="brand" href="index.php"><img src="<?= $settings->logo ?>" alt="logo" style="height:55px;" /></a>
 
 					</div>
 				</div><!-- /navbar-inner -->
@@ -124,7 +124,7 @@
 						<ul class="breadcrumb">
 							<li>You are here:</li>
 							<li>
-								<a href="/index.php" class="tip" title="back to dashboard">
+								<a href="index.php" class="tip" title="back to dashboard">
 									<img src="<?= $settings->image_dir ?>/home.png"/>
 								</a>
 								<span class="divider">
