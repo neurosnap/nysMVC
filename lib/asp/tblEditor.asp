@@ -3,7 +3,7 @@
 <%
 
  ' =======================================================================
- ' tblEditor.js v1.0.0
+ ' tblEditor.js v1.1.0
  ' https://github.com/nysus/tblEditor
  ' Dependencies:  jQuery, DataTables, Bootstrap
  ' =======================================================================
