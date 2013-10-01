@@ -22,8 +22,8 @@
 
 	    <?php
 	    	//loop through plugins here $plugins array
-	    	$plugin = new Plugins();
-	    	$plugin->setPlugins($api->page_plugins);
+	    	$plugin = new Plugins($api->name);
+	    	$plugin->setPlugins();
 
 	    	$css = $plugin->getPluginsCSS();
 
@@ -32,16 +32,24 @@
 	    	}
 	    ?>
 
-		<!-- Le javascript
-	    ================================================== -->
+	    <?php 
+	    	if ($api->cssloc != null) {
+	    		echo '<link href="' . $api->cssloc . '" rel="stylesheet" type="text/css" />';
+	    	}
+	    ?>
 
 	    <!-- User defined javascript -->
 	    <script type="text/javascript">
-	    	var base_dir = '<?= $settings->base_dir ?>';
-	    	var api = '<?= $api->name ?>';
-	    	var action = '<?= $api->action ?>';
-	    	var id = '<?= $api->id ?>';
-	    	var image_dir = '<?= $settings->image_dir ?>';
+
+	    	var settings = {
+	    		"base_dir": '<?= $settings->base_dir ?>',
+	    		"image_dir": '<?= $settings->image_dir ?>',
+	    		"lib_dir": '<?= $settings->lib_dir ?>',
+	    		"api": '<?= $api->name ?>',
+	    		"action": '<?= $api->action ?>',
+	    		"id": '<?= $api->id ?>'
+	    	};
+
 	    </script>
 
 	    <!-- Load plugins -->
@@ -53,7 +61,11 @@
 		    }
 	    ?>
 
-		<script type="text/javascript" src="<?= $api->jsloc; ?>"></script>
+	    <?php 
+	    	if ($api->jsloc != null) {
+				echo '<script type="text/javascript" src="' . $api->jsloc . '"></script>';
+			}
+		?>
 
     </head>
 
@@ -95,19 +107,20 @@
 								<a href="index.php"><img src="<?= $settings->image_dir ?>/home.png"/>  Dashboard</a>
 							</li>
 							<li>
-								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Demo <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
+								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Demo 1 <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
 								<ul class="sub">
-									<li><a href="index.php?api=dashboard&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Demo 1</a></li>
-									<li><a href="index.php?api=dashboard&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Demo 2</a></li>
+									<li><a href="index.php?api=demo&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Generate</a></li>
+									<li><a href="index.php?api=demo&action=edit"><img src="<?= $settings->image_dir ?>/report.png"/>  Edit</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Demo <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
+								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Demo 2 <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
 								<ul class="sub">
-									<li><a href="index.php?api=dashboard&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Demo 1</a></li>
-									<li><a href="index.php?api=dashboard&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Demo 2</a></li>
+									<li><a href="index.php?api=demo&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Dashboard</a></li>
+									<li><a href="index.php?api=demo&action=approval"><img src="<?= $settings->image_dir ?>/report.png"/> Approval</a></li>
 								</ul>
 							</li>
+
 						</ul>
 					</div>
 

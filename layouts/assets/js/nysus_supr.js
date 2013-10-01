@@ -55,7 +55,7 @@ $(document).ready(function() {
 	//remove current class if have
 	mainNavCurrent.removeClass('current');
 
-	var cur_href = 'index.php?api=' + api + '&action=' + action + ((typeof id !== 'undefined' && id != '') ? '&id=' + id : '');
+	var cur_href = 'index.php?api=' + settings.api + '&action=' + settings.action + ((typeof settings.id !== 'undefined' && settings.id != '') ? '&id=' + settings.id : '');
 	cur_href = cur_href.toLowerCase();
 
 	mainNavLinkAll.each(function(index) {
@@ -69,7 +69,7 @@ $(document).ready(function() {
 			if (ulElem.hasClass('sub')) {
 				//its a part of sub menu need to expand this menu
 				aElem = ulElem.prev('a.hasUl').addClass('drop');
-				aElem.find('span.iconSwitch img').attr('src', image_dir + '/arrow-transition-270.png');
+				aElem.find('span.iconSwitch img').attr('src', settings.image_dir + '/arrow-transition-270.png');
 				ulElem.addClass('expand');
 			}
 
@@ -113,10 +113,10 @@ $(document).ready(function() {
 			event.preventDefault();
 			if($this.hasClass('drop')) {
 				$(this).siblings('ul.sub').slideUp(500).siblings().removeClass('drop');
-				$(this).find('span.iconSwitch img').attr('src', image_dir + '/arrow-transition.png');
+				$(this).find('span.iconSwitch img').attr('src', settings.image_dir + '/arrow-transition.png');
 			} else {
 				$(this).siblings('ul.sub').slideDown(250).siblings().addClass('drop');
-				$(this).find('span.iconSwitch img').attr('src', image_dir + '/arrow-transition-270.png');
+				$(this).find('span.iconSwitch img').attr('src', settings.image_dir + '/arrow-transition-270.png');
 			}
 		} else {
 			//has no ul so store a cookie for change class.

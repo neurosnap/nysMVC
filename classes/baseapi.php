@@ -12,13 +12,18 @@ abstract class BaseAPI {
 		$this->urlvalues = $urlvalues;
 	}
 
+	//loads the corresponding APIs "action" or method
+	//IE Dashboard->Index();
 	public function loadAction() {
 		return $this->{$this->action}();
 	}
 
+	//Only way to load a view
 	protected function loadView($model, $fullview = true, $authenticate = false, $view_override = false, $layout_override = false) {
 
+		//object to be sent to view
 		$api = new stdClass();
+		//flag to test if the view should be loaded
 		$load_view = false;
 
 		if (!isset($authenticate))
@@ -56,41 +61,36 @@ abstract class BaseAPI {
 		//if load_view is true, output view
 		if ($load_view) {
 
+			//global variables
 			require('./settings.php');
 
+			//check to see if we should override the view with some other view
 			if (!$view_override)
 				$api->view = './views/' . $this->api . '/' . $this->action . '.php';
 			else
 				$api->view = './views/' . $this->api . '/' . $view_override;
 
-			$api->jsloc = './views/' . $this->api . '/js/' . $this->action . '.js';
+			//view-specific javascript file
+			$jsloc = './views/' . $this->api . '/js/' . $this->action . '.js';
 
+			if (file_exists($jsloc))
+				$api->jsloc = $jsloc;
+			else
+				$api->jsloc = null;
+			
+			//view-specific css file
+			$cssloc = './views/' . $this->api . '/css/' . $this->action . '.css';
+
+			if (file_exists($cssloc))
+				$api->cssloc = $cssloc;
+			else 
+				$api->cssloc = null;
+
+			//api and action values to be passed down to the view
 			$api->name = ucfirst($this->api);
 			$api->action = ucfirst($this->action);
 
-			//build array of necessary plugins
-			switch($this->api) {
-
-				case "dashboard":
-					$api->page_plugins = array("");
-				break;
-
-				case "setup":
-					$api->page_plugins = array("datatables", "tblEditor");
-				break;
-
-				case "report":
-					$api->page_plugins = array("datatables", "select2", "nysReports");
-				break;
-
-				default:
-					$api->page_plugins = array("");
-					$api->name = 'Dashboard';
-					$api->action = 'Dashboard';
-				break;
-
-			}
-
+			//load full view
 			if ($fullview) {
 
 				if (!$layout_override)
@@ -100,6 +100,7 @@ abstract class BaseAPI {
 
 			} else {
 
+				//will only return the view without a layout
 				require($viewloc);
 
 			}

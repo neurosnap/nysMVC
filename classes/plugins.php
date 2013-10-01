@@ -6,76 +6,86 @@ class Plugins {
 	public $plugin_css = array("");
 	public $plugin_js = array("");
 
+	//map for linking an API with its necessary plugins
+	public function __construct($api) {
+
+		switch(strtolower($api)) {
+
+			case "dashboard":
+				$this->plugin_list = array("supr");
+			break;
+
+		}
+
+	}
+
 	//accept std object or array
-	public function setPlugins($obj) {
+	public function setPlugins() {
 
-		if (gettype($obj) == "array" || gettype($obj) == "object") {
+		require('./settings.php');
 
-			require('./settings.php');
+		//jquery
+		array_push($this->plugin_js, $settings->lib_dir . "/js/jquery-2.0.3.min.js");
+		//jquery_ui
+		array_push($this->plugin_js, $settings->lib_dir . "/js/jquery-ui.min.js");
+		array_push($this->plugin_css, $settings->lib_dir . "/css/jquery-ui.min.css");
 
-			$this->plugin_list = json_decode(json_encode($obj));
+		//bootstrap
+		array_push($this->plugin_js, $settings->lib_dir . "/js/bootstrap.min.js");
+		array_push($this->plugin_css, $settings->lib_dir . "/css/bootstrap.min.css");
+		array_push($this->plugin_css, $settings->lib_dir . "/css/bootstrap-responsive.min.css");
 
-			//jquery
-			array_push($this->plugin_js, $settings->lib_dir . "/js/jquery-2.0.3.min.js");
-			//jquery_ui
-			array_push($this->plugin_js, $settings->lib_dir . "/js/jquery-ui.min.js");
-			array_push($this->plugin_css, $settings->lib_dir . "/css/jquery-ui.min.css");
+		array_push($this->plugin_js, "./layouts/assets/js/core.js");
 
-			//bootstrap
-			array_push($this->plugin_js, $settings->lib_dir . "/js/bootstrap.min.js");
-			array_push($this->plugin_css, $settings->lib_dir . "/css/bootstrap.min.css");
-			array_push($this->plugin_css, $settings->lib_dir . "/css/bootstrap-responsive.min.css");
-			//default plugins
-			array_push($this->plugin_css, "./layouts/assets/css/supr_main.css");
+		foreach ($this->plugin_list as $key => $plugin) {
 
-			array_push($this->plugin_js, "./layouts/assets/js/nysus_supr.js");
-			array_push($this->plugin_js, "./layouts/assets/js/core.js");
+			//CASE statement to call appropriate function
+			switch ($plugin) {
+				//Always (for proper loading)
+				case "supr":
+					array_push($this->plugin_css, "./layouts/assets/css/supr_main.css");
+					array_push($this->plugin_js, "./layouts/assets/js/nysus_supr.js");
+				break;
 
-			foreach ($this->plugin_list as $key => $plugin) {
+				case "datatables":
+					array_push($this->plugin_css, $settings->lib_dir . "/css/jquery.dataTables.css");
+					array_push($this->plugin_css, $settings->lib_dir . "/css/nysDataTables.css");
+					array_push($this->plugin_js, $settings->lib_dir . "/js/jquery.dataTables.min.js");
+				break;
 
-				//CASE statement to call appropriate function
-				switch ($plugin) {
-					//Always (for proper loading)
-					case "datatables":
-						array_push($this->plugin_css, $settings->lib_dir . "/css/jquery.dataTables.css");
-						array_push($this->plugin_css, $settings->lib_dir . "/css/nysDataTables.css");
-						array_push($this->plugin_js, $settings->lib_dir . "/js/jquery.dataTables.min.js");
-					break;
+				case "tblEditor":
+					array_push($this->plugin_css, $settings->lib_dir . "/css/tblEditor.css");
+					array_push($this->plugin_js, $settings->lib_dir . "/js/tblEditor.js");
+				break;
 
-					case "tblEditor":
-						array_push($this->plugin_css, $settings->lib_dir . "/css/tblEditor.css");
-						array_push($this->plugin_js, $settings->lib_dir . "/js/tblEditor.js");
-					break;
+				case "nysReports":
+					array_push($this->plugin_js, $settings->lib_dir . "/js/nysReports.js");
+				break;
 
-					case "nysReports":
-						array_push($this->plugin_js, $settings->lib_dir . "/js/nysReports.js");
-					break;
-
-					case "select2":
-						array_push($this->plugin_css, $settings->lib_dir . "/css/select2.css");
-						array_push($this->plugin_js, $settings->lib_dir . "/js/select2.min.js");
-					break;
-						
-				}
-
+				case "select2":
+					array_push($this->plugin_css, $settings->lib_dir . "/css/select2.css");
+					array_push($this->plugin_js, $settings->lib_dir . "/js/select2.min.js");
+				break;
+					
 			}
 
-			array_shift($this->plugin_css);
-			array_shift($this->plugin_js);
-
-		} else {
-			echo 'setPlugin(param), param must be array or object';
 		}
+
+		array_shift($this->plugin_css);
+		array_shift($this->plugin_js);
+
 	}
 
 	//manually add a plugin
 	public function addPlugin($css, $js) {
-		if (gettype() == "string" && gettype() == "string") {
+
+		if (gettype($css) == "string" && gettype($js) == "string") {
 			array_push($this->plugin_css, $css);
 			array_push($this->plugin_js, $js);
 		} else {
 			echo 'addPlugin(css, js), css and js must both be strings containing the directory and file of both css and js.';
 		}
+
 	}
 
 	//get CSS plugin list

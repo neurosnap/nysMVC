@@ -8,7 +8,7 @@
             <div class="title">
 
                 <h4>
-                    <image src="<?= $settings->image_dir ?>/funnel.png"/>
+                    <img src="<?= $settings->image_dir ?>/funnel.png"/>
                     <span>Dashboard</span>
                 </h4>
                 <a href="#" class="minimize">Minimize</a>

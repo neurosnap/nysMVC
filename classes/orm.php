@@ -1,5 +1,10 @@
 <?php
 
+/*
+ORM - Object Relational Map
+This class is used to interface with a Relational Database Management System (RDBMS)
+It currently supports the following PHP drivers: MSSQL, SQLSRV, MYSQL
+*/
 class ORM {
 
 	protected $con;
@@ -11,6 +16,7 @@ class ORM {
 	protected $user;
 	protected $pass;
 
+	//set up proper variables
 	function __construct() {
 
 		require("./settings.php");
@@ -23,6 +29,8 @@ class ORM {
 
 	}
 
+	//Establishes connection to database
+	//Must be closed before transactions are complete
 	public function Connect() {
 
 		if ($this->driver == "sqlsrv") {
@@ -58,6 +66,7 @@ class ORM {
 
 	}
 
+	//Closes database connection, must be activated at end of transactions
 	public function Close() {
 
 		if ($this->driver == "sqlsrv")
@@ -69,6 +78,15 @@ class ORM {
 
 	}
 
+	/* 
+	Main query function
+	string = query
+	json_content = flag to set the header and output format as JSON, typically used in AJAX calls
+	multiple_records = If returning multiple record sets from DB, set this variable to an array of 
+		all the "key" names for the key-to-recordset map, 
+		i.e. two recordsets: $multiple_records = array("users", "broadcasts");
+		the order in which they are in the array is the order in which the recordsets are assigned
+	*/
 	public function Qu($string, $json_content = true, $multiple_records = false) {
 
 		if ($json_content) {
@@ -231,6 +249,13 @@ class ORM {
 
 	}
 
+	/*
+	This is used for queries that don't respond with data
+	I.E INSERT, UPDATE, DELETE
+	This will return an object container "success" as bool and an error message as "message"
+	string = query
+	flag to set the header and output format as JSON, typically used in AJAX calls
+	*/
 	public function Mod($string, $json_content = true) {
 
 		if ($json_content) {
