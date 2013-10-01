@@ -2,7 +2,7 @@
 
 class Dashboard extends BaseAPI {
 
-	protected function Index() {
+	protected function Index($post) {
 
 		//Loading data with a view
 		//$orm = new ORM();
@@ -10,13 +10,6 @@ class Dashboard extends BaseAPI {
 		//$model = $orm->Qu("SELECT * FROM users");
 		//$orm->Close();
 		//$this->loadView($model);
-
-		//Loading AJAX call
-		//$orm = new ORM();
-		//$orm->Connect();
-		//$model = $orm->Qu("SELECT * FROM users WHERE id = " . $_POST['id']);
-		//$orm->Close();
-		//echo $model;
 
 		//loads the view with data from model
 		//function loadView($model, $fullview = true, $authenticate = false, $view_override = false, $layout_override = false)
@@ -31,6 +24,22 @@ class Dashboard extends BaseAPI {
 		//		default layout, layout must contain:  require($api->view);  in order to load the view content properly
 		$this->loadView("This is the model data");
 	
+	}
+
+	protected function AJAX($post) {
+
+		//Loading AJAX call
+		/*
+		$orm = new ORM();
+
+		$orm->Connect();
+
+		$model = $orm->Qu("SELECT * FROM users WHERE id = " . $post['id']);
+
+		$orm->Close();
+
+		echo $model;
+		*/
 	}
 	
 }

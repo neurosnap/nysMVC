@@ -14,8 +14,8 @@ abstract class BaseAPI {
 
 	//loads the corresponding APIs "action" or method
 	//IE Dashboard->Index();
-	public function loadAction() {
-		return $this->{$this->action}();
+	public function loadAction($post) {
+		return $this->{$this->action}($post);
 	}
 
 	//Only way to load a view

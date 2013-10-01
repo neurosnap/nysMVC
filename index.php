@@ -31,6 +31,6 @@ if ($handle = opendir($api_dir)) {
 //create the api and execute the action
 $loader = new Loader($_GET);
 $api = $loader->createAPI();
-$api->loadAction();
+$api->loadAction($_POST);
 
 ?>
