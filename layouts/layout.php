@@ -1,6 +1,6 @@
 <?php
 
-	$page_title = $settings->company_name . " " . $settings->product_name . " - " . $api->name;
+	$page_title = $this->settings->company_name . " " . $this->settings->product_name . " - " . $api->name;
 
 ?>
 
@@ -8,43 +8,28 @@
 <html>
     <head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	    <title><?= $settings->company_name ?> - <?= $api->name ?></title>
+	    <title><?= $this->settings->company_name ?> - <?= $api->name ?></title>
 
 	        <!-- Mobile Specific Metas -->
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="author" content="<?= $settings->company_name ?>" />
-		<meta name="description" content="<?= $settings->product_description ?>" />
+		<meta name="author" content="<?= $this->settings->company_name ?>" />
+		<meta name="description" content="<?= $this->settings->product_description ?>" />
 		<meta name="keywords" content="" />
-		<meta name="application-name" content="<?= $settings->product_name ?>" />
-
-	    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' /> --> <!-- Headings -->
-		<!-- <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css' /> --> <!-- Text -->
+		<meta name="application-name" content="<?= $this->settings->product_name ?>" />
 
 	    <?php
-	    	//loop through plugins here $plugins array
-	    	$plugin = new Plugins($api->name);
-	    	$plugin->setPlugins();
+	    	$plugin = new Plugins($api);
 
-	    	$css = $plugin->getPluginsCSS();
-
-	    	foreach ($css as $key => $style) {
-	    		echo '<link href="' . $style . '" rel="stylesheet" type="text/css" />' . PHP_EOL;
-	    	}
-	    ?>
-
-	    <?php 
-	    	if ($api->cssloc != null) {
-	    		echo '<link href="' . $api->cssloc . '" rel="stylesheet" type="text/css" />';
-	    	}
+	    	echo $plugin->getPluginsCSS();
 	    ?>
 
 	    <!-- User defined javascript -->
 	    <script type="text/javascript">
 
 	    	var settings = {
-	    		"base_dir": '<?= $settings->base_dir ?>',
-	    		"image_dir": '<?= $settings->image_dir ?>',
-	    		"lib_dir": '<?= $settings->lib_dir ?>',
+	    		"base_dir": '<?= $this->settings->base_dir ?>',
+	    		"image_dir": '<?= $this->settings->image_dir ?>',
+	    		"lib_dir": '<?= $this->settings->lib_dir ?>',
 	    		"api": '<?= $api->name ?>',
 	    		"action": '<?= $api->action ?>',
 	    		"id": '<?= $api->id ?>'
@@ -54,70 +39,58 @@
 
 	    <!-- Load plugins -->
 	    <?php
-	    	$js = $plugin->getPluginsJS();
-
-	    	foreach ($js as $key => $value) {
-		    	echo '<script type="text/javascript" src="' . $value . '"></script>' . PHP_EOL;
-		    }
-	    ?>
-
-	    <?php 
-	    	if ($api->jsloc != null) {
-				echo '<script type="text/javascript" src="' . $api->jsloc . '"></script>';
-			}
+	    	echo $plugin->getPluginsJS();
 		?>
 
     </head>
 
 	<body>
 
-		<!-- Header -->
 		<div id="header">
 			<div class="navbar">
 				<div class="supr-navbar-inner">
 					<div class="container-fluid">
-						<a class="brand" href="index.php"><img src="<?= $settings->logo ?>" alt="logo" style="height:55px;" /></a>
+						<a class="brand" href="index.php"><img src="<?= $this->settings->logo ?>" alt="logo" style="height:55px;" /></a>
 
 					</div>
-				</div><!-- /navbar-inner -->
-			</div><!-- /navbar -->
+				</div>
+			</div>
 		</div>
-		<!-- End #header -->
 
 		<div id="wrapper">
-			<!--Sidebar collapse button-->
+
 			<div class="collapseBtn leftbar" style="top: 70px;">
-				<a href="#" class="tipR" title="Hide sidebar"><img src="<?= $settings->image_dir ?>/application-dock-180.png"/></a>
+				<a href="#" class="tipR" title="Hide sidebar"><img src="<?= $this->settings->image_dir ?>/application-dock-180.png"/></a>
 			</div>
 
-			<!--Sidebar background-->
+
 			<div id="sidebarbg"></div>
-			<!--Sidebar content-->
+
 			<div id="sidebar">
 
 				<div class="sidenav">
 
 					<div class="sidebar-widget" style="margin: -1px 0 0 0;">
 						<h5 class="title" style="margin-bottom:0">Navigation</h5>
-					</div><!-- End .sidenav-widget -->
+					</div>
 
 					<div class="mainnav">
 						<ul>
 							<li>
-								<a href="index.php"><img src="<?= $settings->image_dir ?>/home.png"/>  Dashboard</a>
+								<a href="index.php"><img src="<?= $this->settings->image_dir ?>/home.png"/>  Dashboard</a>
 							</li>
 							<li>
-								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Demo 1 <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
+								<a href="#"><img src="<?= $this->settings->image_dir ?>/reports-stack.png"/>  Demo 1 <span class="hasDrop iconSwitch"><img src="<?= $this->settings->image_dir ?>/arrow-transition.png" /></span></a>
 								<ul class="sub">
-									<li><a href="index.php?api=demo&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Generate</a></li>
-									<li><a href="index.php?api=demo&action=edit"><img src="<?= $settings->image_dir ?>/report.png"/>  Edit</a></li>
+									<li><a href="index.php?api=demo&action=index"><img src="<?= $this->settings->image_dir ?>/report.png"/>  Generate</a></li>
+									<li><a href="index.php?api=demo&action=edit"><img src="<?= $this->settings->image_dir ?>/report.png"/>  Edit</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="#"><img src="<?= $settings->image_dir ?>/reports-stack.png"/>  Demo 2 <span class="hasDrop iconSwitch"><img src="<?= $settings->image_dir ?>/arrow-transition.png" /></span></a>
+								<a href="#"><img src="<?= $this->settings->image_dir ?>/reports-stack.png"/>  Demo 2 <span class="hasDrop iconSwitch"><img src="<?= $this->settings->image_dir ?>/arrow-transition.png" /></span></a>
 								<ul class="sub">
-									<li><a href="index.php?api=demo&action=index"><img src="<?= $settings->image_dir ?>/report.png"/>  Dashboard</a></li>
-									<li><a href="index.php?api=demo&action=approval"><img src="<?= $settings->image_dir ?>/report.png"/> Approval</a></li>
+									<li><a href="index.php?api=demo&action=index"><img src="<?= $this->settings->image_dir ?>/report.png"/>  Dashboard</a></li>
+									<li><a href="index.php?api=demo&action=approval"><img src="<?= $this->settings->image_dir ?>/report.png"/> Approval</a></li>
 								</ul>
 							</li>
 
@@ -125,12 +98,12 @@
 					</div>
 
 				</div>
-				<!-- End sidenav -->
-			</div><!-- End #sidebar -->
 
-			<!--Body content-->
+			</div>
+
 			<div id="content" class="clearfix">
-				<div class="contentwrapper"><!--Content wrapper-->
+
+				<div class="contentwrapper">
 					<div class="heading">
 						<h3><?php echo $page_title; ?></h3>
 
@@ -138,24 +111,24 @@
 							<li>You are here:</li>
 							<li>
 								<a href="index.php" class="tip" title="back to dashboard">
-									<img src="<?= $settings->image_dir ?>/home.png"/>
+									<img src="<?= $this->settings->image_dir ?>/home.png"/>
 								</a>
 								<span class="divider">
-									<img src="<?= $settings->image_dir ?>/resultset_next.png"/>
+									<img src="<?= $this->settings->image_dir ?>/resultset_next.png"/>
 								</span>
 							</li>
 							<li class="active"><?php echo $api->name; ?></li>
 
 						</ul>
 
-					</div><!-- End .heading-->
+					</div>
 					<!-- Build page from here: -->
 	               <?php require($api->view); ?>
+	            </div>
 
-	            </div><!-- End contentwrapper -->
-	        </div><!-- End #content -->
+	        </div>
 
-    	</div><!-- End #wrapper -->
+    	</div>
 
     </body>
 </html>

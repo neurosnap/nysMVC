@@ -18,6 +18,8 @@
 	//cloudFront files
 	$settings->cloudFront = "https://d1dah60mzcyfe0.cloudfront.net/theme_supr";
 	
+
+
 	//company name
 	$settings->company_name = "DEMO COMPANY";
 	//product name
@@ -30,12 +32,31 @@
 	$settings->lib_dir = './lib';
 	//default layout file in ./layouts
 	$settings->layout = "layout.php";
+	$settings->layout_notify = "layout.php";
 	
+	require('./db.php');
 	//DB INFO
-	$settings->server = '';
-	$settings->db = '';
-	$settings->user = '';
-	$settings->pass = '';
-	$settings->driver = 'sqlsrv';
+	$settings->server = $db->server;
+	$settings->db = $db->db;
+	$settings->user = $db->user;
+	$settings->pass = $db->pass;
+	$settings->driver = $db->driver;
+
+	//define plugins based on API here
+	if (array_key_exists("api", $_GET)) {
+
+		switch(strtolower($_GET['api'])) {
+
+			case "dashboard":
+				$settings->plugin_list = array("supr");
+			break;
+
+			default:
+				$settings->plugin_list = array("supr");
+			break;
+
+		}
+
+	}
 
 ?>

@@ -3,39 +3,42 @@
 class Plugins {
 
 	private $plugin_list;
+	private $settings;
+	private $css_api;
+	private $css_view;
+	private $js_api;
+	private $js_view;
 	public $plugin_css = array("");
 	public $plugin_js = array("");
 
 	//map for linking an API with its necessary plugins
 	public function __construct($api) {
 
-		switch(strtolower($api)) {
+		require('./settings.php');
+		$this->settings = $settings;
+		$this->plugin_list = $settings->plugin_list;
+		$this->css_api = $api->css_api;
+		$this->css_view = $api->css_view;
+		$this->js_api = $api->js_api;
+		$this->js_view = $api->js_view;
 
-			case "dashboard":
-				$this->plugin_list = array("supr");
-			break;
-
-		}
+		$this->setPlugins();
 
 	}
 
 	//accept std object or array
 	public function setPlugins() {
 
-		require('./settings.php');
-
 		//jquery
-		array_push($this->plugin_js, $settings->lib_dir . "/js/jquery-2.0.3.min.js");
+		array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery-2.0.3.min.js");
 		//jquery_ui
-		array_push($this->plugin_js, $settings->lib_dir . "/js/jquery-ui.min.js");
-		array_push($this->plugin_css, $settings->lib_dir . "/css/jquery-ui.min.css");
+		array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery-ui.min.js");
+		array_push($this->plugin_css, $this->settings->lib_dir . "/css/jquery-ui.min.css");
 
 		//bootstrap
-		array_push($this->plugin_js, $settings->lib_dir . "/js/bootstrap.min.js");
-		array_push($this->plugin_css, $settings->lib_dir . "/css/bootstrap.min.css");
-		array_push($this->plugin_css, $settings->lib_dir . "/css/bootstrap-responsive.min.css");
-
-		array_push($this->plugin_js, "./layouts/assets/js/core.js");
+		array_push($this->plugin_js, $this->settings->lib_dir . "/js/bootstrap.min.js");
+		array_push($this->plugin_css, $this->settings->lib_dir . "/css/bootstrap.min.css");
+		array_push($this->plugin_css, $this->settings->lib_dir . "/css/bootstrap-responsive.min.css");
 
 		foreach ($this->plugin_list as $key => $plugin) {
 
@@ -48,54 +51,76 @@ class Plugins {
 				break;
 
 				case "datatables":
-					array_push($this->plugin_css, $settings->lib_dir . "/css/jquery.dataTables.css");
-					array_push($this->plugin_css, $settings->lib_dir . "/css/nysDataTables.css");
-					array_push($this->plugin_js, $settings->lib_dir . "/js/jquery.dataTables.min.js");
+					array_push($this->plugin_css, $this->settings->lib_dir . "/css/jquery.dataTables.css");
+					array_push($this->plugin_css, $this->settings->lib_dir . "/css/nysDataTables.css");
+					array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery.dataTables.min.js");
 				break;
 
 				case "tblEditor":
-					array_push($this->plugin_css, $settings->lib_dir . "/css/tblEditor.css");
-					array_push($this->plugin_js, $settings->lib_dir . "/js/tblEditor.js");
+					array_push($this->plugin_css, $this->settings->lib_dir . "/css/tblEditor.css");
+					array_push($this->plugin_js, $this->settings->lib_dir . "/js/tblEditor.js");
 				break;
 
 				case "nysReports":
-					array_push($this->plugin_js, $settings->lib_dir . "/js/nysReports.js");
+					array_push($this->plugin_js, $this->settings->lib_dir . "/js/nysReports-1.0.0.js");
 				break;
 
 				case "select2":
-					array_push($this->plugin_css, $settings->lib_dir . "/css/select2.css");
-					array_push($this->plugin_js, $settings->lib_dir . "/js/select2.min.js");
+					array_push($this->plugin_css, $this->settings->lib_dir . "/css/select2.css");
+					array_push($this->plugin_js, $this->settings->lib_dir . "/js/select2.min.js");
 				break;
 					
 			}
 
 		}
 
+		array_push($this->plugin_js, "./layouts/assets/js/core.js");
+
 		array_shift($this->plugin_css);
 		array_shift($this->plugin_js);
 
 	}
 
-	//manually add a plugin
-	public function addPlugin($css, $js) {
-
-		if (gettype($css) == "string" && gettype($js) == "string") {
-			array_push($this->plugin_css, $css);
-			array_push($this->plugin_js, $js);
-		} else {
-			echo 'addPlugin(css, js), css and js must both be strings containing the directory and file of both css and js.';
-		}
-
-	}
-
 	//get CSS plugin list
 	public function getPluginsCSS() {
-		return $this->plugin_css;
+
+		$css = "";
+
+		foreach ($this->plugin_css as $key => $value) {
+    		$css .= '<link href="' . $value . '" rel="stylesheet" type="text/css" />' . PHP_EOL;
+    	}
+
+    	if ($this->css_api != null) {
+    		$css .= '<link href="' . $this->css_api . '" rel="stylesheet" type="text/css" />' . PHP_EOL;
+    	}
+
+    	if ($this->css_view != null) {
+    		$css .= '<link href="' . $this->css_view . '" rel="stylesheet" type="text/css" />' . PHP_EOL;
+    	}
+
+		return $css;
+
 	}
 
 	//get JS plugin list
 	public function getPluginsJS() {
-		return $this->plugin_js;
+		
+		$js = "";
+
+		foreach ($this->plugin_js as $key => $value) {
+	    	$js .= '<script type="text/javascript" src="' . $value . '"></script>' . PHP_EOL;
+	    }
+
+	    if ($this->js_api != null) {
+			$js .= '<script type="text/javascript" src="' . $this->js_api . '"></script>' . PHP_EOL;
+		}
+
+    	if ($this->js_view != null) {
+			$js .= '<script type="text/javascript" src="' . $this->js_view . '"></script>' . PHP_EOL;
+		}
+
+		return $js;
+
 	}
 
 }
