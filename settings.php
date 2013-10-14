@@ -1,5 +1,11 @@
 <?php
 
+	/*
+		nysMVC v1.0.0
+		written by: Eric Bower (http://neurosnap.net)
+		Latest: https://github.com/neurosnap/nysMVC
+	*/
+
 	//GLOBALS
 	//----------------------------------------------------------------------
 	
