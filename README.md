@@ -57,14 +57,42 @@ API is really a fusion of a Controller and a Model in a MVC pattern design.
 This is where global variables are defined that can essentially be accessed everywhere there is a PHP file in this framework.
 Go there to find plenty of settings.
 
+
 #### BaseAPI (nysMVC/classes/baseapi.php)
 The baseapi class is an abstract class with some built-in functionality to load the views.  All APIs and VIEWs are driven off of this class by returnView() method.
+
+Here is an example of an API:
+```
+class Dashboard extends BaseAPI {
+	
+	protected function Index() {
+		$this->returnView();
+	}
+
+}
+```
+
+When someone visits index.php?api=dashboard&action=index -- they will activate the function above, which will return a view.  The returnView() method figures out what plugins
+are necessary, checks for authentication rights, and then injects the view, embedded within the layout.  Both the layout and view will inherit the BaseAPIs variables, and methods.
+The view that the above API is looking for: 
+
+* nysMVC/views/{API}/{ACTION}.php 
+
+as well as: 
+
+* nysMVC/views/{API}/js/{ACTION}.js (VIEW-specific JS file)
+* nysMVC/views/{API}/css/{ACTION}.css (VIEW-specific CSS file)
+* nysMVC/views/{API}/js/{API}.js (API-specific JS file)
+* nysMVC/views/{API}/css/{API}.css (API-specific CSS file)
+
 
 #### Loader (nysMVC/classes/loader.php)
 The loader class will direct traffic when someone hits nysMVC/index.php based on the $_GET variables "api" and "action" e.g. index.php?api=dashboard&action=index
 
+
 #### Plugins (nysMVC/classes/plugins.php)
 The plugin class creates an interface to dynamically load in JS or CSS files.
+
 
 #### ORM (nysMVC/classes/orm.php)
 The ORM class interfaces with 3 different PHP drivers (sqlsrv, mssql, and mysql).  It is to be used in the various API classes.  There are 4 main methods in the ORM:
@@ -96,7 +124,6 @@ $orm->Close();
 
 By default, Qu() returns JSON objects, to convert that JSON ENCODED object back into a stdClass object:
 ```
-
 $orm = new ORM();
 
 //$json_content should be set to false or else a JSON response header will be set
@@ -107,4 +134,4 @@ $model = json_decode($records);
 $orm->Close();
 ```
 
-There are more examples in the default API, dashboard:  ./api/dashboard.php
+There are more examples in the default API, dashboard:  nysMVC/api/dashboard.php
