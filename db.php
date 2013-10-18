@@ -8,7 +8,7 @@
 	$db = new stdClass();
 
 	$db->server = "";
-	$db->db = "";
+	$db->dba = "";
 	$db->user = "";
 	$db->pass = "";
 	//e.g. sqlsrv, mssql, mysql

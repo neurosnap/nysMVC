@@ -1,4 +1,4 @@
-nysMVC
+nysMVC -- v1.0.1
 ======
 
 Razor thin MVC framework in PHP with SQL and mySQL RDBMS driver support.

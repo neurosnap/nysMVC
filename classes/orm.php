@@ -17,13 +17,16 @@ class ORM {
 	protected $pass;
 
 	//set up proper variables
-	function __construct() {
+	function __construct($dir = false) {
 
-		require("./settings.php");
+		if ($dir)
+			require($dir);
+		else
+			require("./db.php");
 
 		$this->driver = $settings->driver;
 		$this->server = $settings->server;
-		$this->db = $settings->db;
+		$this->db = $settings->dba;
 		$this->user = $settings->user;
 		$this->pass = $settings->pass;
 

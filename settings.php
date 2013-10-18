@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		nysMVC v1.0.0
+		nysMVC v1.0.1
 		written by: Eric Bower (http://neurosnap.net)
 		Latest: https://github.com/neurosnap/nysMVC
 	*/
@@ -33,14 +33,6 @@
 	//default layout file in ./layouts
 	$settings->layout = "layout.php";
 	$settings->layout_notify = "layout.php";
-	
-	require('./db.php');
-	//DB INFO
-	$settings->server = $db->server;
-	$settings->db = $db->db;
-	$settings->user = $db->user;
-	$settings->pass = $db->pass;
-	$settings->driver = $db->driver;
 
 	//define plugins based on API here
 	if (array_key_exists("api", $_GET)) {
