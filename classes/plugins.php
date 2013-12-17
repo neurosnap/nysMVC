@@ -30,7 +30,7 @@ class Plugins {
 	public function setPlugins() {
 
 		//jquery
-		array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery-2.0.3.min.js");
+		array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery-1.10.2.min.js");
 		//jquery_ui
 		array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery-ui.min.js");
 		array_push($this->plugin_css, $this->settings->lib_dir . "/css/jquery-ui.min.css");
@@ -62,7 +62,7 @@ class Plugins {
 				break;
 
 				case "nysReports":
-					array_push($this->plugin_js, $this->settings->lib_dir . "/js/nysReports-1.0.0.js");
+					array_push($this->plugin_js, $this->settings->lib_dir . "/js/nysReports-1.1.7.js");
 				break;
 
 				case "select2":

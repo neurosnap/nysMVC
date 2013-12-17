@@ -24,11 +24,11 @@ class ORM {
 		else
 			require("./db.php");
 
-		$this->driver = $settings->driver;
-		$this->server = $settings->server;
-		$this->db = $settings->dba;
-		$this->user = $settings->user;
-		$this->pass = $settings->pass;
+		$this->driver = $db->driver;
+		$this->server = $db->server;
+		$this->db = $db->dba;
+		$this->user = $db->user;
+		$this->pass = $db->pass;
 
 	}
 
@@ -53,7 +53,7 @@ class ORM {
 
 		} else {
 
-			die("{ \"error\": \"No SQL driver selected for PHP. Set settings->driver to sqlsrv or mssql in settings.php\" }");
+			die("{ \"error\": \"No SQL driver selected for PHP. Set db->driver to sqlsrv or mssql in db.php\" }");
 
 		}
 
@@ -96,7 +96,8 @@ class ORM {
 			header('Content-type: application/json');
 		}
 
-		//$this->Connect();
+		if ($this->con == null)
+			$this->Connect();
 
 		$arr = array();
 
@@ -265,7 +266,8 @@ class ORM {
 			header('Content-type: application/json');
 		}
 
-		//$this->Connect();
+		if ($this->con == null)
+			$this->Connect();
 
 		$msg = new stdClass();
 

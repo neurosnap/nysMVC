@@ -3,7 +3,7 @@
 <%
 
  ' =======================================================================
- ' tblEditor.js v1.1.0
+ ' tblEditor.js v1.0.0
  ' https://github.com/nysus/tblEditor
  ' Dependencies:  jQuery, DataTables, Bootstrap
  ' =======================================================================
@@ -30,9 +30,10 @@
 	Set oConn = Server.CreateObject("ADODB.Connection")
 
 	connString = "Provider=SQLOLEDB;" & _
-				 "Data Source=localhost\nysus;" & _
-				 "Initial Catalog=db" & _
-				 "User Id=user;Password=pass;"
+				 "Data Source=www.nysus.net;" & _
+				 "Initial Catalog=calibration;" & _
+				 "User Id=nysususer;Password=nysus2444;"
+
 	oConn.ConnectionString = connString
 	oConn.Open connString
 
@@ -53,8 +54,6 @@
 		end if
 
 		strSQL = strSQL & "ORDER BY c.ordinal_position"
-		'Response.Write strSQL
-		'Response.Flush
 		QueryToJSON(oConn, strSQL).Flush
 
 		Response.Write ", ""table_data"":"
@@ -71,57 +70,6 @@
 		QueryToJSON(oConn, strSQL).Flush
 
 		Response.Write ", ""foreign_key_data"":["
-
-		if Len(Request("fk_override_tbl_first")) > 0 Then
-
-			Response.Write "{ ""REF_TABLE_NAME"": """ & Request("fk_override_tbl_first") & """, ""REF_COLUMN_NAME"": """ & Request("fk_override_refcol_first") & """, "
-
-			Response.Write " ""COLUMN_NAME"": """ & Request("fk_override_col_first") & """, ""REF_DATA"": "
-
-			strSQL = "SELECT ID as 'value', " & Request("fk_override_desc_first") & " as 'text' FROM " & Request("fk_override_tbl_first")
-
-			'Response.Write strSQL
-			'Response.Flush
-			QueryToJSON(oConn, strSQL).Flush
-
-			Response.Write "}, "
-			Response.Flush
-
-		end if
-
-		if Len(Request("fk_override_tbl_second")) > 0 Then
-
-			Response.Write "{ ""REF_TABLE_NAME"": """ & Request("fk_override_tbl_second") & """, ""REF_COLUMN_NAME"": """ & Request("fk_override_refcol_second") & """, "
-
-			Response.Write " ""COLUMN_NAME"": """ & Request("fk_override_col_second") & """, ""REF_DATA"": "
-
-			strSQL = "SELECT ID as 'value', " & Request("fk_override_desc_second") & " as 'text' FROM " & Request("fk_override_tbl_second")
-
-			QueryToJSON(oConn, strSQL).Flush
-
-			Response.Write "}, "
-			Response.Flush
-
-		end if
-
-		if Len(Request("fk_override_tbl_third")) > 0 Then
-
-			Response.Write "{ ""REF_TABLE_NAME"": """ & Request("fk_override_tbl_third") & """, ""REF_COLUMN_NAME"": """ & Request("fk_override_refcol_third") & """, "
-
-			Response.Write " ""COLUMN_NAME"": """ & Request("fk_override_col_third") & """, ""REF_DATA"": "
-
-			strSQL = "SELECT ID as 'value', " & Request("fk_override_desc_third") & " as 'text' FROM " & Request("fk_override_tbl_third")
-
-			'Response.Write strSQL
-			'Response.Flush
-
-			QueryToJSON(oConn, strSQL).Flush
-
-			Response.Write "}, "
-			Response.Flush
-
-		end if
-	
 		strSQL = "SELECT FK.TABLE_NAME, FK_COLS.COLUMN_NAME, PK.TABLE_NAME as REF_TABLE_NAME, PK_COLS.COLUMN_NAME as REF_COLUMN_NAME, ISNULL(s.value, '{}') as [FIELD_DESC] " & _
 					"FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS REF_CONST " & _
 					"	INNER JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS FK " & _
@@ -139,21 +87,13 @@
 					"	LEFT OUTER JOIN sys.columns c2 ON OBJECT_ID(FK.TABLE_CATALOG+'.'+FK.TABLE_SCHEMA+'.'+FK.TABLE_NAME) = c2.object_id AND FK_COLS.COLUMN_NAME = c2.name " & _
 					"	LEFT OUTER JOIN sys.extended_properties s ON s.major_id = c2.object_id AND s.minor_id = c2.column_id AND s.name = 'MS_Description' " & _
 					"WHERE FK.TABLE_NAME = '" & Request("table_name") & "'"
-		
 		Set oRs = oConn.Execute(strSQL)
-		
-		If oRs.EOF Then
-			Response.Write "{}"
-			Response.Flush
-		End if
-		
 		While Not oRs.EOF
 			Response.Write "{" & _
 								"	""REF_TABLE_NAME"":""" & oRs("REF_TABLE_NAME") & """, ""COLUMN_NAME"":""" & _
 				oRs("COLUMN_NAME") & """, ""REF_COLUMN_NAME"":""" & oRs("REF_COLUMN_NAME") & """, ""REF_DATA"":"
 			desc_column = ""
 			'what is description field?
-
 			strSQL = "SELECT c.*, COLUMNPROPERTY(OBJECT_ID(c.TABLE_NAME),c.COLUMN_NAME,'IsIdentity') as IS_IDENTITY, ISNULL(s.value, '{}') as 'FIELD_DESC' " & _
 						"FROM information_schema.columns c " & _
 						"	JOIN sys.columns c2 ON OBJECT_ID(c.TABLE_CATALOG + '.' + c.TABLE_SCHEMA + '.' + c.TABLE_NAME) = c2.object_id AND c.COLUMN_NAME = c2.name " & _
