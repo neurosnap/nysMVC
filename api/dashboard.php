@@ -26,13 +26,13 @@ class Dashboard extends BaseAPI {
 	}
 
 	//simple ajax call
-	protected function example_simple_ajax($post, $get) {
+	protected function example_simple_ajax($reqs) {
 
 		//ORM class defined /classes/orm.php
 		$orm = new ORM();
 
 		/* 
-		function Qu($string, $json_content = true, $multiple_records = false)
+		function Qu($string, $json_content = true, $multiple_records = false, $params = false)
 		---------------------------------------------------------------------
 			$string = the query
 			$json_content = true or false flag to set header to JSON or just text
@@ -40,6 +40,7 @@ class Dashboard extends BaseAPI {
 			all the "key" names for the key-to-recordset map, 
 			i.e. two recordsets: $multiple_records = array("users", "broadcasts");
 			the order in which they are in the array is the order in which the recordsets are assigned
+			$params = array of parameters for SQL parameterization
 		*/
 		$model = $orm->Qu("SELECT * FROM users");
 
@@ -50,7 +51,7 @@ class Dashboard extends BaseAPI {
 	}
 
 	//more complicated ajax call with mutiple keys
-	protected function example_complex_ajax($post, $get) {
+	protected function example_complex_ajax($reqs) {
 
 		//ORM class defined /classes/orm.php
 		$orm = new ORM();
@@ -66,7 +67,7 @@ class Dashboard extends BaseAPI {
 		
 	}
 
-	protected function example_update_insert_delete_ajax($post, $get) {
+	protected function example_update_insert_delete_ajax($reqs) {
 
 		$orm = new ORM();
 		$model = new stdClass();

@@ -17,7 +17,7 @@
                 Dashboard Content Page! <br />
                 <?php 
 
-                    echo $model;
+                    echo $api->model;
 
                 ?>
             </div>

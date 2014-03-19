@@ -1,5 +1,5 @@
 $(function() {
 
-	console.log('dashboard loaded');
+	console.log('action-specific javascript file');
 
 });

@@ -2,74 +2,99 @@
 
 class Plugins {
 
-	private $plugin_list;
-	private $settings;
+	private $plugins;
+	private $lib_dir;
+
 	private $css_api;
 	private $css_view;
 	private $js_api;
 	private $js_view;
+	
 	public $plugin_css = array("");
 	public $plugin_js = array("");
 
 	//map for linking an API with its necessary plugins
-	public function __construct($api) {
+	public function __construct($plugins, $lib_dir, $api, $action) {
 
-		require('./settings.php');
-		$this->settings = $settings;
-		$this->plugin_list = $settings->plugin_list;
-		$this->css_api = $api->css_api;
-		$this->css_view = $api->css_view;
-		$this->js_api = $api->js_api;
-		$this->js_view = $api->js_view;
+		if (!$plugins || !$lib_dir) {
+			die("List of plugins requires lib_dir to be set in settings object");
+		}
+
+		$this->plugins = $plugins;
+		$this->lib_dir = $lib_dir;
+
+		//api-specific javascript file
+		$js_api = './views/' . $api . '/js/' . $api . '.js';
+		if ($api != $action && file_exists($js_api)) {
+			$this->js_api = $js_api;
+		}
+
+		//view-specific javascript file
+		$js_view = './views/' . $api . '/js/' . $action . '.js';
+		if (file_exists($js_view)) {
+			$this->js_view = $js_view;
+		}
+		
+		//api-specific css file
+		$css_api = './views/' . $api . '/css/' . $api . '.css';
+		if ($api != $action && file_exists($css_api)) {
+			$css_api = $css_api;
+		}
+
+		//view-specific css file
+		$css_view = './views/' . $api . '/css/' . $action . '.css';
+		if (file_exists($css_view)) {
+			$this->css_view = $css_view;
+		}
 
 		$this->setPlugins();
 
 	}
 
 	//accept std object or array
-	public function setPlugins() {
+	private function setPlugins() {
 
 		//jquery
-		array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery-1.10.2.min.js");
+		array_push($this->plugin_js, $this->lib_dir . "/js/jquery-1.10.2.min.js");
 		//jquery_ui
-		array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery-ui.min.js");
-		array_push($this->plugin_css, $this->settings->lib_dir . "/css/jquery-ui.min.css");
+		array_push($this->plugin_js, $this->lib_dir . "/js/jquery-ui.min.js");
+		array_push($this->plugin_css, $this->lib_dir . "/css/jquery-ui.min.css");
 
 		//bootstrap
-		array_push($this->plugin_js, $this->settings->lib_dir . "/js/bootstrap.min.js");
-		array_push($this->plugin_css, $this->settings->lib_dir . "/css/bootstrap.min.css");
-		array_push($this->plugin_css, $this->settings->lib_dir . "/css/bootstrap-responsive.min.css");
+		array_push($this->plugin_js, $this->lib_dir . "/js/bootstrap.min.js");
+		array_push($this->plugin_css, $this->lib_dir . "/css/bootstrap.min.css");
 
-		foreach ($this->plugin_list as $key => $plugin) {
+		foreach ($this->plugins as $key => $plugin) {
 
 			//CASE statement to call appropriate function
 			switch ($plugin) {
 				//Always (for proper loading)
-				case "supr":
-					array_push($this->plugin_css, "./layouts/assets/css/supr_main.css");
-					array_push($this->plugin_js, "./layouts/assets/js/nysus_supr.js");
-				break;
-
+				case "base":
+					array_push($this->plugin_css, $this->asset_dir . "/css/bootstrap_layout.css");
+					
 				case "datatables":
-					array_push($this->plugin_css, $this->settings->lib_dir . "/css/jquery.dataTables.css");
-					array_push($this->plugin_css, $this->settings->lib_dir . "/css/nysDataTables.css");
-					array_push($this->plugin_js, $this->settings->lib_dir . "/js/jquery.dataTables.min.js");
+					array_push($this->plugin_css, $this->lib_dir . "/css/jquery.dataTables.css");
+					array_push($this->plugin_css, $this->lib_dir . "/css/nysDataTables.css");
+					array_push($this->plugin_js, $this->lib_dir . "/js/jquery.dataTables.min.js");
 				break;
 
 				case "tblEditor":
-					array_push($this->plugin_css, $this->settings->lib_dir . "/css/tblEditor.css");
-					array_push($this->plugin_js, $this->settings->lib_dir . "/js/tblEditor.js");
+					array_push($this->plugin_css, $this->lib_dir . "/css/tblEditor.css");
+					array_push($this->plugin_js, $this->lib_dir . "/js/tblEditor.js");
 				break;
 
 				case "nysReports":
-					array_push($this->plugin_js, $this->settings->lib_dir . "/js/nysReports-1.1.7.js");
+					array_push($this->plugin_js, $this->lib_dir . "/js/nysReports-1.1.7.js");
 				break;
 
 				case "select2":
-					array_push($this->plugin_css, $this->settings->lib_dir . "/css/select2.css");
-					array_push($this->plugin_js, $this->settings->lib_dir . "/js/select2.min.js");
+					array_push($this->plugin_css, $this->lib_dir . "/css/select2.css");
+					array_push($this->plugin_js, $this->lib_dir . "/js/select2.min.js");
 				break;
 					
+				case "googleCharts":
+					array_push($this->plugin_js, "https://www.google.com/jsapi");
+				break;
 			}
 
 		}
@@ -87,15 +112,15 @@ class Plugins {
 		$css = "";
 
 		foreach ($this->plugin_css as $key => $value) {
-    		$css .= '<link href="' . $value . '" rel="stylesheet" type="text/css" />' . PHP_EOL;
+    		$css .= '<link href="' . $value . '" rel="stylesheet" />' . PHP_EOL;
     	}
 
-    	if ($this->css_api != null) {
-    		$css .= '<link href="' . $this->css_api . '" rel="stylesheet" type="text/css" />' . PHP_EOL;
+    	if ($this->css_api) {
+    		$css .= '<link href="' . $this->css_api . '" rel="stylesheet" />' . PHP_EOL;
     	}
 
-    	if ($this->css_view != null) {
-    		$css .= '<link href="' . $this->css_view . '" rel="stylesheet" type="text/css" />' . PHP_EOL;
+    	if ($this->css_view) {
+    		$css .= '<link href="' . $this->css_view . '" rel="stylesheet" />' . PHP_EOL;
     	}
 
 		return $css;
@@ -108,15 +133,15 @@ class Plugins {
 		$js = "";
 
 		foreach ($this->plugin_js as $key => $value) {
-	    	$js .= '<script type="text/javascript" src="' . $value . '"></script>' . PHP_EOL;
-	    }
+	    	$js .= '<script src="' . $value . '"></script>' . PHP_EOL;
+	   }
 
-	    if ($this->js_api != null) {
-			$js .= '<script type="text/javascript" src="' . $this->js_api . '"></script>' . PHP_EOL;
+	    if ($this->js_api) {
+			$js .= '<script src="' . $this->js_api . '"></script>' . PHP_EOL;
 		}
 
-    	if ($this->js_view != null) {
-			$js .= '<script type="text/javascript" src="' . $this->js_view . '"></script>' . PHP_EOL;
+    	if ($this->js_view) {
+			$js .= '<script src="' . $this->js_view . '"></script>' . PHP_EOL;
 		}
 
 		return $js;
