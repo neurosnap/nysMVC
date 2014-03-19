@@ -1,9 +1,3 @@
-<?php
-
-	$page_title = $settings->company_name . " " . $settings->product_name . " - " . $api->name;
-
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,9 +11,7 @@
 		<meta name="keywords" content="" />
 		<meta name="application-name" content="<?= $settings->product_name ?>" />
 
-	    <?php
-	    	echo $api->plugins->getPluginsCSS();
-	    ?>
+	    <?= $api->plugins->getPluginsCSS() ?>
 
 	    <!-- User defined javascript -->
 	    <script type="text/javascript">
@@ -35,10 +27,7 @@
 
 	    </script>
 
-	    <!-- Load plugins -->
-	    <?php
-	    	echo $api->plugins->getPluginsJS();
-		?>
+	    <?= $api->plugins->getPluginsJS() ?>
 
     </head>
 
@@ -103,7 +92,7 @@
 
 				<div class="contentwrapper">
 					<div class="heading">
-						<h3><?php echo $page_title; ?></h3>
+						<h3><?= $settings->company_name . " " . $settings->product_name . " - " . $api->name ?></h3>
 
 						<ul class="breadcrumb">
 							<li>You are here:</li>
@@ -115,7 +104,7 @@
 									<img src="<?= $settings->image_dir ?>/resultset_next.png"/>
 								</span>
 							</li>
-							<li class="active"><?php echo $api->name; ?></li>
+							<li class="active"><?= $api->name ?></li>
 
 						</ul>
 
