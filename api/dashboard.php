@@ -21,7 +21,9 @@ class Dashboard extends BaseAPI {
 			$layout_override = expecting string containing file of layout that should be used instead of 
 					default layout, layout must contain:  require($api->view);  in order to load the view content properly
 		*/
-		$this->loadView("This is the model data");
+		$orm = new ORM();
+		$model = $orm->Qu("SELECT * FROM users", false);
+		$this->loadView($model);
 	
 	}
 

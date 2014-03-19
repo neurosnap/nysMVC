@@ -17,6 +17,7 @@
                 Dashboard Content Page! <br />
                 <?php 
 
+                    var_dump($api->model);
                     echo $api->model;
 
                 ?>

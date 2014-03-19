@@ -68,9 +68,6 @@ class Plugins {
 
 			//CASE statement to call appropriate function
 			switch ($plugin) {
-				//Always (for proper loading)
-				case "base":
-					array_push($this->plugin_css, $this->asset_dir . "/css/bootstrap_layout.css");
 					
 				case "datatables":
 					array_push($this->plugin_css, $this->lib_dir . "/css/jquery.dataTables.css");

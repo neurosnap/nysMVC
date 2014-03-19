@@ -5,13 +5,11 @@
 		this file will normally be ignored from git
 	*/
 
-	$db = new stdClass();
-
-	$db->server = "";
-	$db->dba = "";
-	$db->user = "";
-	$db->pass = "";
+	$server = "www.nysus.net";
+	$db = "eric_dev";
+	$user = "nysususer";
+	$pass = "nysus2444";
 	//e.g. sqlsrv, mssql, mysql
-	$db->driver = "sqlsrv";
+	$driver = "sqlsrv";
 
 ?>

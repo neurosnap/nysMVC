@@ -6,21 +6,19 @@ function get_plugins($api = false, $action = false) {
 		die("Plugin Settings: API is invalid");
 	}
 
-	$response = "No plugins defined for API (" . $api . ")";
-
 	switch(strtolower($api)) {
 
 		case "dashboard":
-			$response = array("supr");
+			$plugins = array("");
 		break;
 
 		default:
-			$response = array("supr");
+			$plugins = array("");
 		break;
 
 	}
 
-	return $response;
+	return $plugins;
 
 }
 
