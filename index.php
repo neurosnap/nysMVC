@@ -11,7 +11,7 @@ if ($handle = opendir($api_dir)) {
 	while (false !== ($file = readdir($handle))) {
 		if ($file != "." && $file != "..") {
 			require_once(implode(DIRECTORY_SEPARATOR, array($api_dir, $file)));
-        }
+		}
 	}
 }
 
