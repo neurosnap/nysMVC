@@ -55,14 +55,14 @@ class Plugins {
 	private function setPlugins() {
 
 		//jquery
-		array_push($this->plugin_js, $this->lib_dir . "/js/jquery-1.10.2.min.js");
+		array_push($this->plugin_js, "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js");
 		//jquery_ui
 		array_push($this->plugin_js, $this->lib_dir . "/js/jquery-ui.min.js");
 		array_push($this->plugin_css, $this->lib_dir . "/css/jquery-ui.min.css");
 
 		//bootstrap
-		array_push($this->plugin_js, $this->lib_dir . "/js/bootstrap.min.js");
-		array_push($this->plugin_css, $this->lib_dir . "/css/bootstrap.min.css");
+		array_push($this->plugin_js, "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js");
+		array_push($this->plugin_css, "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");
 
 		foreach ($this->plugins as $key => $plugin) {
 
